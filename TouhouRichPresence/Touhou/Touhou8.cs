@@ -72,14 +72,13 @@ namespace TouhouRichPresence.Touhou
                 return isPlaying;
             }
         }
-
-        // IMPORTANT: Do not implement, address is not debugged
+        
         public override bool IsPaused
         {
             get
             {
                 int isPaused = 0;
-                NativeWrapper.ReadProcessMemory(TouhouHandle, IntPtr.Add(TouhouProcess.MainModule.BaseAddress, 0xF54300), ref isPaused);
+                NativeWrapper.ReadProcessMemory(TouhouHandle, IntPtr.Add(TouhouProcess.MainModule.BaseAddress, 0x124D0A0), ref isPaused);
                 return isPaused == 1;
             }
         }
