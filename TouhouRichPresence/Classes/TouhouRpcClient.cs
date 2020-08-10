@@ -13,6 +13,8 @@ namespace TouhouRichPresence.Classes
         private readonly TouhouGame touhou;
         private readonly Timer timer;
 
+        private DateTime? date;
+
         public TouhouRpcClient(TouhouGame touhou)
         {
             this.touhou = touhou;
@@ -30,27 +32,36 @@ namespace TouhouRichPresence.Classes
                 Console.WriteLine("Received Update! {0}", e.Presence);
             };
 
-            timer = new Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
+            timer = new Timer(TimeSpan.FromSeconds(2).TotalMilliseconds);
             timer.Elapsed += UpdatePresence;
-
             client.Initialize();
+
             timer.Start();
         }
 
         public void UpdatePresence(object sender, ElapsedEventArgs e)
         {
             TouhouState th = touhou.GetState;
+            if (th.Playing && date == null)
+            {
+                date = DateTime.UtcNow;
+            }
+            else if (!th.Playing)
+            {
+                date = null;
+            }
+
             client.SetPresence(new RichPresence()
             {
                 Details = $"{(th.Playing ? th.Stage : "Menu")}",
                 State = $"{(th.Playing ? (th.Paused ? $"{th.Difficulty} (Paused)" : $"{th.Difficulty}") : "Idle")}",
-
+                Timestamps = th.Playing ? new Timestamps(date.Value) : null,
                 Assets = new Assets()
                 {
                     LargeImageKey = "icon",
                     LargeImageText = th.Name,
-                    SmallImageKey = th.CharacterAndShotType.Character.ToLowerInvariant(),
-                    SmallImageText = $"{th.CharacterAndShotType.Character} {th.CharacterAndShotType.ShotType}"
+                    SmallImageKey = th.Playing ? th.CharacterAndShotType.Character.ToLowerInvariant().Replace(' ', '_') : null,
+                    SmallImageText = th.Playing ? $"{th.CharacterAndShotType.Character} {th.CharacterAndShotType.ShotType}" : null
                 }
             });
         }

@@ -18,7 +18,7 @@ namespace TouhouRichPresence.Classes
 
         public async Task StartAsync()
         {
-            for (int tries = 0; tries < 10; tries++)
+            for (int tries = 0; tries < 20; tries++)
             {
                 touhou = FindTouhouGame();
                 if (touhou != null)
