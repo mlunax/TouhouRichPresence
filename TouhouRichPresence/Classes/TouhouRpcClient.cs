@@ -1,8 +1,6 @@
 ﻿using DiscordRPC;
 using DiscordRPC.Logging;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Timers;
 
 namespace TouhouRichPresence.Classes
@@ -41,7 +39,7 @@ namespace TouhouRichPresence.Classes
 
         public void UpdatePresence(object sender, ElapsedEventArgs e)
         {
-            var th = touhou.GetState;
+            TouhouState th = touhou.GetState;
             client.SetPresence(new RichPresence()
             {
                 Details = $"{(th.Playing ? th.Stage : "Menu")}",
@@ -71,6 +69,7 @@ namespace TouhouRichPresence.Classes
                 disposedValue = true;
             }
         }
+
         public void Dispose()
         {
             Dispose(disposing: true);

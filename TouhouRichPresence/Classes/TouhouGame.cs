@@ -1,9 +1,7 @@
 ﻿using ProcessMemoryUtilities.Managed;
 using ProcessMemoryUtilities.Native;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace TouhouRichPresence.Classes
 {
@@ -21,7 +19,6 @@ namespace TouhouRichPresence.Classes
             TouhouProcess.EnableRaisingEvents = true;
         }
 
-
         public virtual string GetClientId { get; }
 
         public virtual string GetName { get; }
@@ -35,7 +32,7 @@ namespace TouhouRichPresence.Classes
         {
             get
             {
-                var state = new TouhouState(GetName, GetDifficulty, GetCharacterAndShotType, GetStage, IsPlaying, IsPaused);
+                TouhouState state = new TouhouState(GetName, GetDifficulty, GetCharacterAndShotType, GetStage, IsPlaying, IsPaused);
                 return state;
             }
         }
@@ -52,10 +49,12 @@ namespace TouhouRichPresence.Classes
                 disposedValue = true;
             }
         }
+
         ~TouhouGame()
         {
             Dispose(disposing: false);
         }
+
         public void Dispose()
         {
             Dispose(disposing: true);

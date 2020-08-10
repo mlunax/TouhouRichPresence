@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TouhouRichPresence.Touhou;
@@ -28,7 +26,6 @@ namespace TouhouRichPresence.Classes
                     break;
                 }
                 await Task.Delay(TimeSpan.FromSeconds(3));
-
             }
             if (touhou == null)
             {
@@ -48,7 +45,7 @@ namespace TouhouRichPresence.Classes
 
         private static TouhouGame FindTouhouGame()
         {
-            var touhouProcess = Process.GetProcesses().Where(process => process.ProcessName.StartsWith("th", StringComparison.InvariantCulture)).FirstOrDefault();
+            Process touhouProcess = Process.GetProcesses().Where(process => process.ProcessName.StartsWith("th", StringComparison.InvariantCulture)).FirstOrDefault();
             return (touhouProcess?.ProcessName) switch
             {
                 "th07" => new Touhou7(touhouProcess),
@@ -70,6 +67,7 @@ namespace TouhouRichPresence.Classes
                 disposedValue = true;
             }
         }
+
         public void Dispose()
         {
             Dispose(disposing: true);

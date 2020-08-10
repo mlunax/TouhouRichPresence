@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using TouhouRichPresence.Touhou;
+﻿using System.Threading.Tasks;
 
 namespace TouhouRichPresence.Classes
 {
@@ -17,7 +10,7 @@ namespace TouhouRichPresence.Classes
 
         public async Task StartAsync()
         {
-            using var touhouManager = new TouhouManager();
+            using TouhouManager touhouManager = new TouhouManager();
             try
             {
                 await touhouManager.StartAsync();

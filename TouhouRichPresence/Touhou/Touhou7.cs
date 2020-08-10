@@ -1,8 +1,6 @@
 ﻿using ProcessMemoryUtilities.Managed;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using TouhouRichPresence.Classes;
 
 namespace TouhouRichPresence.Touhou

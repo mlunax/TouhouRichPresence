@@ -1,9 +1,4 @@
-﻿using DiscordRPC.Helper;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TouhouRichPresence.Classes
+﻿namespace TouhouRichPresence.Classes
 {
     public class CharacterAndShotType
     {
