@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -45,12 +46,21 @@ namespace TouhouRichPresence.Classes
 
         private static TouhouGame FindTouhouGame()
         {
-            Process touhouProcess = Process.GetProcesses().Where(process => process.ProcessName.StartsWith("th", StringComparison.InvariantCulture)).FirstOrDefault();
-            return (touhouProcess?.ProcessName) switch
+            IEnumerable<Process> touhouProcesses = Process.GetProcesses().Where(process =>
+                process.ProcessName.StartsWith("th", StringComparison.InvariantCulture));
+            foreach (var p in touhouProcesses)
             {
-                "th07" => new Touhou7(touhouProcess),
-                _ => null,
-            };
+                switch (p?.ProcessName)
+                {
+                    case "th07":
+                        return new Touhou7(p);
+                    case "th08":
+                        return new Touhou8(p);
+                    default:
+                        continue;
+                }
+            }
+            return null;
         }
 
         protected virtual void Dispose(bool disposing)
