@@ -13,8 +13,7 @@ namespace TouhouRichPresence.Touhou
         
         public override string GetClientId => "742511178961518673";
         public override string GetName => "Touhou 8: Imperishable Night";
-
-        // IMPORTANT: Do not implement, address is not debugged
+        
         public override string GetDifficulty
         {
             get
